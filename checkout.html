@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout | VELORA</title>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- Announcement Bar -->
+  <div class="announcement-bar">
+    <i class="fas fa-truck-fast"></i> FREE SHIPPING ON ALL ORDERS OVER RS. 10,000
+  </div>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="brand-logo">
+        VELORA<span>.</span>
+      </a>
+
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="shop.html" class="nav-link">Shop</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <div id="nav-user-menu"></div>
+        <a href="cart.html" class="icon-btn" title="Shopping Cart">
+          <i class="fas fa-shopping-bag"></i>
+          <span class="badge-count" id="cart-count-badge" style="display: none;">0</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Checkout Section -->
+  <section class="section-padding container">
+    <h1 class="section-title">CHECKOUT</h1>
+    <p class="section-subtitle">Complete your details to place your luxury order</p>
+
+    <div id="checkout-alert" style="display: none; margin-bottom: 1.5rem; padding: 1rem; border-radius: var(--radius-sm); background: #ffe3e3; color: var(--danger); border: 1px solid #ffa8a8; font-size: 0.9rem;"></div>
+
+    <form id="checkout-form">
+      <div style="display: grid; grid-template-columns: 3fr 2fr; gap: 3rem;" class="cart-layout">
+        
+        <!-- Left Column: Shipping & Payment Details -->
+        <div>
+          <!-- Customer Info -->
+          <div style="background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1.75rem; margin-bottom: 2rem;">
+            <h3 style="font-size: 1.1rem; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1.25rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.75rem;">
+              1. Customer Information
+            </h3>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+              <div class="form-group">
+                <label class="form-label">Full Name <span style="color: var(--danger);">*</span></label>
+                <input type="text" id="chk-name" class="form-control" required placeholder="Full Name">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Phone Number <span style="color: var(--danger);">*</span></label>
+                <input type="tel" id="chk-phone" class="form-control" required placeholder="+92 300 1234567">
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 0;">
+              <label class="form-label">Email Address <span style="color: var(--danger);">*</span></label>
+              <input type="email" id="chk-email" class="form-control" required placeholder="name@example.com">
+            </div>
+          </div>
+
+          <!-- Shipping Address -->
+          <div style="background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1.75rem; margin-bottom: 2rem;">
+            <h3 style="font-size: 1.1rem; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1.25rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.75rem;">
+              2. Shipping Address
+            </h3>
+
+            <div class="form-group">
+              <label class="form-label">Street Address <span style="color: var(--danger);">*</span></label>
+              <input type="text" id="chk-street" class="form-control" required placeholder="House/Flat No., Street Name, Sector">
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+              <div class="form-group">
+                <label class="form-label">City <span style="color: var(--danger);">*</span></label>
+                <input type="text" id="chk-city" class="form-control" required placeholder="e.g. Lahore / Karachi / Islamabad">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">District / Area</label>
+                <input type="text" id="chk-district" class="form-control" placeholder="District">
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 0;">
+              <label class="form-label">Postal Code</label>
+              <input type="text" id="chk-postal" class="form-control" placeholder="e.g. 54000">
+            </div>
+          </div>
+
+          <!-- Payment Method -->
+          <div style="background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1.75rem;">
+            <h3 style="font-size: 1.1rem; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1.25rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.75rem;">
+              3. Payment Method
+            </h3>
+
+            <div style="display: flex; flex-direction: column; gap: 1rem;">
+              <label style="display: flex; align-items: center; gap: 0.75rem; border: 1px solid var(--accent); padding: 1rem; border-radius: var(--radius-sm); cursor: pointer; background: var(--accent-light);">
+                <input type="radio" name="paymentMethod" value="Cash on Delivery" checked>
+                <div>
+                  <strong style="display: block; font-size: 0.95rem;">Cash on Delivery (COD)</strong>
+                  <span style="font-size: 0.8rem; color: var(--text-muted);">Pay with cash upon package arrival at your doorstep.</span>
+                </div>
+              </label>
+
+              <label style="display: flex; align-items: center; gap: 0.75rem; border: 1px solid var(--border-color); padding: 1rem; border-radius: var(--radius-sm); cursor: pointer;">
+                <input type="radio" name="paymentMethod" value="Card Payment (Demo)">
+                <div>
+                  <strong style="display: block; font-size: 0.95rem;">Credit / Debit Card (Demo UI)</strong>
+                  <span style="font-size: 0.8rem; color: var(--text-muted);">Simulated card processing for testing purposes.</span>
+                </div>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Order Summary Preview -->
+        <div>
+          <div style="background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 2rem; position: sticky; top: 100px;">
+            <h3 style="font-size: 1.1rem; text-transform: uppercase; border-bottom: 1px solid var(--border-color); padding-bottom: 0.75rem; margin-bottom: 1.25rem;">ORDER SUMMARY</h3>
+
+            <div id="checkout-items-preview" style="display: flex; flex-direction: column; gap: 1rem; max-height: 250px; overflow-y: auto; margin-bottom: 1.5rem; padding-right: 0.5rem;">
+              <!-- Rendered via JS -->
+            </div>
+
+            <div id="checkout-totals-summary" style="display: flex; flex-direction: column; gap: 0.75rem; border-top: 1px solid var(--border-color); padding-top: 1rem; font-size: 0.9rem;">
+              <!-- Rendered via JS -->
+            </div>
+
+            <button type="submit" id="place-order-btn" class="btn btn-primary btn-block" style="padding: 1rem; margin-top: 1.5rem;">
+              PLACE ORDER NOW <i class="fas fa-lock"></i>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom" style="border: none; padding: 0;">
+        <p>&copy; 2026 VELORA Clothing Store. CodeAlpha Full Stack Internship Submission.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/main.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const cart = getCart();
+
+      if (cart.length === 0) {
+        showToast('Your cart is empty. Redirecting to shop...', 'info');
+        setTimeout(() => window.location.href = 'shop.html', 1000);
+        return;
+      }
+
+      // Autofill logged in user information
+      if (isAuthenticated()) {
+        try {
+          const res = await apiRequest('/auth/me', 'GET', null, true);
+          if (res.success && res.data) {
+            const u = res.data;
+            document.getElementById('chk-name').value = u.name || '';
+            document.getElementById('chk-email').value = u.email || '';
+            document.getElementById('chk-phone').value = u.phone || '';
+
+            if (u.address) {
+              document.getElementById('chk-street').value = u.address.street || '';
+              document.getElementById('chk-city').value = u.address.city || '';
+              document.getElementById('chk-district').value = u.address.district || '';
+              document.getElementById('chk-postal').value = u.address.postalCode || '';
+            }
+          }
+        } catch (e) {}
+      }
+
+      renderCheckoutSummary();
+
+      // Form submission
+      document.getElementById('checkout-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        if (!isAuthenticated()) {
+          showToast('Please log in or register to place your order', 'error');
+          setTimeout(() => {
+            window.location.href = 'login.html?redirect=checkout.html';
+          }, 1000);
+          return;
+        }
+
+        const alertEl = document.getElementById('checkout-alert');
+        const placeBtn = document.getElementById('place-order-btn');
+        alertEl.style.display = 'none';
+
+        const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
+
+        const shippingAddress = {
+          fullName: document.getElementById('chk-name').value.trim(),
+          phone: document.getElementById('chk-phone').value.trim(),
+          address: document.getElementById('chk-street').value.trim(),
+          city: document.getElementById('chk-city').value.trim(),
+          district: document.getElementById('chk-district').value.trim(),
+          postalCode: document.getElementById('chk-postal').value.trim()
+        };
+
+        const currentCart = getCart();
+
+        placeBtn.disabled = true;
+        placeBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing Order...';
+
+        try {
+          const res = await apiRequest('/orders', 'POST', {
+            items: currentCart,
+            shippingAddress,
+            paymentMethod
+          }, true);
+
+          if (res.success && res.data) {
+            clearCart();
+            showToast('Order placed successfully!', 'success');
+            setTimeout(() => {
+              window.location.href = `order-confirmation.html?id=${res.data._id}`;
+            }, 800);
+          }
+        } catch (err) {
+          alertEl.textContent = err.message || 'Failed to place order';
+          alertEl.style.display = 'block';
+          placeBtn.disabled = false;
+          placeBtn.innerHTML = 'PLACE ORDER NOW <i class="fas fa-lock"></i>';
+        }
+      });
+    });
+
+    function renderCheckoutSummary() {
+      const cart = getCart();
+      const totals = getCartTotals();
+
+      const itemsPreview = document.getElementById('checkout-items-preview');
+      const totalsSummary = document.getElementById('checkout-totals-summary');
+
+      itemsPreview.innerHTML = cart.map(item => `
+        <div style="display: flex; gap: 0.75rem; align-items: center; font-size: 0.85rem;">
+          <img src="${item.image}" alt="${item.name}" style="width: 50px; height: 60px; object-fit: cover; border-radius: 4px;">
+          <div style="flex-grow: 1;">
+            <div style="font-weight: 600;">${item.name}</div>
+            <div style="color: var(--text-muted); font-size: 0.75rem;">Size: ${item.size} | Qty: ${item.quantity}</div>
+          </div>
+          <div style="font-weight: 700;">Rs. ${(item.price * item.quantity).toLocaleString()}</div>
+        </div>
+      `).join('');
+
+      totalsSummary.innerHTML = `
+        <div style="display: flex; justify-content: space-between;">
+          <span style="color: var(--text-muted);">Subtotal</span>
+          <span>Rs. ${totals.subtotal.toLocaleString()}</span>
+        </div>
+        <div style="display: flex; justify-content: space-between;">
+          <span style="color: var(--text-muted);">Shipping</span>
+          <span style="color: ${totals.shipping === 0 ? 'var(--success)' : 'inherit'};">
+            ${totals.shipping === 0 ? 'FREE' : `Rs. ${totals.shipping.toLocaleString()}`}
+          </span>
+        </div>
+        <div style="display: flex; justify-content: space-between; font-size: 1.1rem; font-weight: 700; border-top: 1px solid var(--border-color); padding-top: 0.75rem;">
+          <span>Total</span>
+          <span style="color: var(--primary);">Rs. ${totals.total.toLocaleString()}</span>
+        </div>
+      `;
+    }
+  </script>
+</body>
+</html>

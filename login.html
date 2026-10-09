@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customer Login | VELORA</title>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="brand-logo">
+        VELORA<span>.</span>
+      </a>
+
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="shop.html" class="nav-link">Shop</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="cart.html" class="icon-btn" title="Shopping Cart">
+          <i class="fas fa-shopping-bag"></i>
+          <span class="badge-count" id="cart-count-badge" style="display: none;">0</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Login Auth Card -->
+  <section class="section-padding">
+    <div class="auth-container">
+      <h1 class="auth-title">WELCOME BACK</h1>
+      <p class="auth-sub">Sign in to your VELORA account to continue</p>
+
+      <div id="login-alert" style="display: none; margin-bottom: 1rem; padding: 0.75rem; border-radius: var(--radius-sm); font-size: 0.85rem; background: #ffe3e3; color: var(--danger); border: 1px solid #ffa8a8;"></div>
+
+      <form id="login-form">
+        <div class="form-group">
+          <label class="form-label" for="login-email">Email Address <span style="color: var(--danger);">*</span></label>
+          <input type="email" id="login-email" class="form-control" placeholder="name@example.com" required>
+        </div>
+
+        <div class="form-group">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <label class="form-label" for="login-password">Password <span style="color: var(--danger);">*</span></label>
+          </div>
+          <input type="password" id="login-password" class="form-control" placeholder="••••••••" required>
+        </div>
+
+        <button type="submit" id="login-btn" class="btn btn-primary btn-block" style="padding: 0.9rem; margin-top: 1rem;">
+          SIGN IN <i class="fas fa-arrow-right"></i>
+        </button>
+      </form>
+
+      <div style="margin-top: 2rem; text-align: center; font-size: 0.9rem; color: var(--text-muted); border-top: 1px solid var(--border-color); padding-top: 1.5rem;">
+        Don't have a VELORA account? <a href="register.html" style="color: var(--primary); font-weight: 600; text-decoration: underline;">Create an account</a>
+      </div>
+
+      <!-- Quick Demo Credentials Box -->
+      <div style="margin-top: 1.5rem; background: var(--accent-light); padding: 1rem; border-radius: var(--radius-sm); font-size: 0.8rem;">
+        <strong style="color: var(--primary);"><i class="fas fa-key"></i> Quick Demo Login Credentials:</strong><br>
+        • Customer: <code>ahmad@example.com</code> / <code>user123password</code><br>
+        • Admin: <code>admin@velora.com</code> / <code>admin123password</code>
+      </div>
+    </div>
+  </section>
+
+  <!-- Scripts -->
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/main.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (isAuthenticated()) {
+        window.location.href = 'index.html';
+      }
+
+      const form = document.getElementById('login-form');
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const email = document.getElementById('login-email').value.trim();
+        const password = document.getElementById('login-password').value;
+        const alertEl = document.getElementById('login-alert');
+        const submitBtn = document.getElementById('login-btn');
+
+        alertEl.style.display = 'none';
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Authenticating...';
+
+        try {
+          const res = await apiRequest('/auth/login', 'POST', { email, password });
+
+          if (res.success && res.data.token) {
+            setAuthSession(res.data.token, res.data);
+            showToast('Login successful! Redirecting...', 'success');
+            setTimeout(() => {
+              const redirect = new URLSearchParams(window.location.search).get('redirect') || 'index.html';
+              window.location.href = redirect;
+            }, 800);
+          }
+        } catch (err) {
+          alertEl.textContent = err.message || 'Invalid email or password';
+          alertEl.style.display = 'block';
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = 'SIGN IN <i class="fas fa-arrow-right"></i>';
+        }
+      });
+    });
+  </script>
+</body>
+</html>

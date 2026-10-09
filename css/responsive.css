@@ -1,0 +1,134 @@
+/* ==========================================================================
+   VELORA RESPONSIVE STYLES
+   Breakpoints: 1440px, 1024px, 768px, 390px, 360px
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+  .hero-title {
+    font-size: 2.75rem;
+  }
+  
+  .shop-layout {
+    grid-template-columns: 220px 1fr;
+    gap: 1.5rem;
+  }
+  
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    position: fixed;
+    top: 80px;
+    left: -100%;
+    width: 80%;
+    max-width: 320px;
+    height: calc(100vh - 80px);
+    background-color: var(--bg-surface);
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 2.5rem 2rem;
+    box-shadow: var(--shadow-lg);
+    transition: var(--transition);
+    z-index: 999;
+  }
+  
+  .nav-links.active {
+    left: 0;
+  }
+  
+  .mobile-menu-toggle {
+    display: block;
+  }
+  
+  .hero-section {
+    height: 70vh;
+    min-height: 450px;
+  }
+  
+  .hero-title {
+    font-size: 2.25rem;
+  }
+  
+  .hero-sub {
+    font-size: 0.95rem;
+  }
+  
+  .hero-buttons {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .shop-layout {
+    grid-template-columns: 1fr;
+  }
+  
+  .filter-sidebar {
+    display: none;
+  }
+  
+  .filter-sidebar.active {
+    display: block;
+  }
+  
+  .product-detail-layout {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .cart-layout {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .promo-banner h2 {
+    font-size: 2rem;
+  }
+  
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .footer-bottom {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .announcement-bar {
+    font-size: 0.7rem;
+    padding: 0.4rem;
+  }
+  
+  .brand-logo {
+    font-size: 1.4rem;
+  }
+  
+  .section-title {
+    font-size: 1.75rem;
+  }
+  
+  .hero-title {
+    font-size: 1.85rem;
+  }
+  
+  .products-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem;
+  }
+  
+  .product-details-content {
+    padding: 0.85rem;
+  }
+  
+  .product-title {
+    font-size: 0.9rem;
+  }
+  
+  .current-price {
+    font-size: 1rem;
+  }
+}

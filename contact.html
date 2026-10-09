@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us | VELORA Customer Support</title>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- Announcement Bar -->
+  <div class="announcement-bar">
+    <i class="fas fa-truck-fast"></i> FREE SHIPPING ON ALL ORDERS OVER RS. 10,000
+  </div>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="container nav-container">
+      <button class="mobile-menu-toggle" id="mobile-menu-btn" aria-label="Toggle menu">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <a href="index.html" class="brand-logo">
+        VELORA<span>.</span>
+      </a>
+
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="shop.html" class="nav-link">Shop</a></li>
+        <li><a href="about.html" class="nav-link">About</a></li>
+        <li><a href="contact.html" class="nav-link active">Contact</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <div id="nav-user-menu"></div>
+        <a href="cart.html" class="icon-btn" title="Shopping Cart">
+          <i class="fas fa-shopping-bag"></i>
+          <span class="badge-count" id="cart-count-badge" style="display: none;">0</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <div style="background-color: var(--bg-subtle); padding: 3rem 0; text-align: center; border-bottom: 1px solid var(--border-color);">
+    <div class="container">
+      <h1 class="section-title">WE'RE HERE TO HELP</h1>
+      <p class="section-subtitle" style="margin-bottom: 0;">Have a question regarding fit, orders, or custom styling? Get in touch.</p>
+    </div>
+  </div>
+
+  <!-- Contact Form & Info -->
+  <section class="section-padding container">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem;" class="product-detail-layout">
+      
+      <!-- Contact Info -->
+      <div>
+        <h2 style="font-size: 1.75rem; margin-bottom: 1rem;">VELORA ATELIER & HEADQUARTERS</h2>
+        <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 2rem;">
+          Our concierge fashion team is available Monday through Saturday from 9:00 AM to 8:00 PM.
+        </p>
+
+        <div style="display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 2.5rem;">
+          <div style="display: flex; gap: 1rem; align-items: flex-start;">
+            <div style="width: 45px; height: 45px; background: var(--accent-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--accent); font-size: 1.2rem; flex-shrink: 0;">
+              <i class="fas fa-location-dot"></i>
+            </div>
+            <div>
+              <strong style="font-size: 0.95rem; display: block;">Flagship Store & Office</strong>
+              <span style="color: var(--text-muted); font-size: 0.85rem;">100 Luxury Boulevard, Gulberg III, Lahore, Pakistan</span>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 1rem; align-items: flex-start;">
+            <div style="width: 45px; height: 45px; background: var(--accent-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--accent); font-size: 1.2rem; flex-shrink: 0;">
+              <i class="fas fa-envelope"></i>
+            </div>
+            <div>
+              <strong style="font-size: 0.95rem; display: block;">Email Support</strong>
+              <span style="color: var(--text-muted); font-size: 0.85rem;">support@velora.com | care@velora.com</span>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 1rem; align-items: flex-start;">
+            <div style="width: 45px; height: 45px; background: var(--accent-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--accent); font-size: 1.2rem; flex-shrink: 0;">
+              <i class="fas fa-phone-flip"></i>
+            </div>
+            <div>
+              <strong style="font-size: 0.95rem; display: block;">Helpline</strong>
+              <span style="color: var(--text-muted); font-size: 0.85rem;">+92 42 111-VELORA (+92 42 111 835 672)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact Form -->
+      <div style="background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 2.25rem;">
+        <h3 style="font-size: 1.25rem; text-transform: uppercase; margin-bottom: 1.5rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.75rem;">SEND US A MESSAGE</h3>
+        
+        <form onsubmit="event.preventDefault(); showToast('Your message has been sent to VELORA support', 'success'); this.reset();">
+          <div class="form-group">
+            <label class="form-label">Full Name</label>
+            <input type="text" class="form-control" required placeholder="Your name">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <input type="email" class="form-control" required placeholder="name@example.com">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Subject</label>
+            <input type="text" class="form-control" placeholder="Order Inquiry / Size Assistance">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Message</label>
+            <textarea class="form-control" rows="4" required placeholder="How can we assist you today?"></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block">SEND MESSAGE <i class="fas fa-paper-plane"></i></button>
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom" style="border: none; padding: 0;">
+        <p>&copy; 2026 VELORA Clothing Store. CodeAlpha Full Stack Internship Submission.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

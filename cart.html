@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping Cart | VELORA</title>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- Announcement Bar -->
+  <div class="announcement-bar">
+    <i class="fas fa-truck-fast"></i> FREE SHIPPING ON ALL ORDERS OVER RS. 10,000
+  </div>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="container nav-container">
+      <button class="mobile-menu-toggle" id="mobile-menu-btn" aria-label="Toggle menu">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <a href="index.html" class="brand-logo">
+        VELORA<span>.</span>
+      </a>
+
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="shop.html" class="nav-link">Shop</a></li>
+        <li><a href="about.html" class="nav-link">About</a></li>
+        <li><a href="contact.html" class="nav-link">Contact</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <div id="nav-user-menu"></div>
+        <a href="cart.html" class="icon-btn active" title="Shopping Cart">
+          <i class="fas fa-shopping-bag"></i>
+          <span class="badge-count" id="cart-count-badge" style="display: none;">0</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <div style="background-color: var(--bg-subtle); padding: 2.5rem 0; text-align: center; border-bottom: 1px solid var(--border-color);">
+    <div class="container">
+      <h1 class="section-title">YOUR SHOPPING BAG</h1>
+      <p class="section-subtitle" style="margin-bottom: 0;">Review your luxury selections before checkout</p>
+    </div>
+  </div>
+
+  <!-- Cart Content -->
+  <section class="section-padding container">
+    <div id="cart-view-wrapper">
+      <!-- Rendered by inline script -->
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom" style="border: none; padding: 0;">
+        <p>&copy; 2026 VELORA Clothing Store. CodeAlpha Full Stack Internship Submission.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/main.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      renderCartView();
+    });
+
+    function renderCartView() {
+      const wrapper = document.getElementById('cart-view-wrapper');
+      if (!wrapper) return;
+
+      const cart = getCart();
+      const totals = getCartTotals();
+
+      if (cart.length === 0) {
+        wrapper.innerHTML = `
+          <div style="text-align: center; padding: 5rem 1rem; background: var(--bg-surface); border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+            <i class="fas fa-shopping-bag fa-4x" style="color: var(--text-light); margin-bottom: 1.5rem;"></i>
+            <h2>Your Cart is Empty</h2>
+            <p style="color: var(--text-muted); margin: 0.5rem 0 2rem;">Looks like you haven't added any VELORA garments to your shopping bag yet.</p>
+            <a href="shop.html" class="btn btn-primary">START SHOPPING NOW</a>
+          </div>
+        `;
+        return;
+      }
+
+      wrapper.innerHTML = `
+        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 3rem;" class="cart-layout">
+          
+          <!-- Left: Cart Items List -->
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem; margin-bottom: 1.5rem;">
+              <h3 style="font-size: 1.2rem; text-transform: uppercase;">Items (${totals.itemCount})</h3>
+              <button onclick="clearCart(); renderCartView();" style="color: var(--danger); font-weight: 600; font-size: 0.85rem;">Clear Entire Cart</button>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+              ${cart.map((item, index) => `
+                <div style="display: grid; grid-template-columns: 90px 1fr auto; gap: 1.5rem; align-items: center; background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1.25rem;">
+                  <img src="${item.image}" alt="${item.name}" style="width: 90px; height: 110px; object-fit: cover; border-radius: var(--radius-sm);">
+                  
+                  <div>
+                    <h4 style="font-size: 1.05rem; margin-bottom: 0.35rem;">${item.name}</h4>
+                    <div style="font-size: 0.85rem; color: var(--text-muted); display: flex; gap: 1rem; margin-bottom: 0.65rem;">
+                      <span><strong>Size:</strong> ${item.size}</span>
+                      <span><strong>Color:</strong> ${item.color}</span>
+                    </div>
+                    <div style="font-size: 1rem; font-weight: 700; color: var(--primary);">
+                      Rs. ${item.price.toLocaleString()}
+                    </div>
+                  </div>
+
+                  <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 0.75rem;">
+                    <button onclick="removeFromCart(${index}); renderCartView();" style="color: var(--text-muted); font-size: 0.9rem;" title="Remove Item">
+                      <i class="fas fa-trash-alt"></i>
+                    </button>
+
+                    <div style="display: flex; align-items: center; gap: 0.35rem; border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 0.15rem 0.4rem;">
+                      <button class="icon-btn" style="padding: 0.2rem;" onclick="updateCartItemQty(${index}, ${item.quantity - 1}); renderCartView();"><i class="fas fa-minus" style="font-size: 0.75rem;"></i></button>
+                      <span style="font-weight: 600; font-size: 0.9rem; min-width: 25px; text-align: center;">${item.quantity}</span>
+                      <button class="icon-btn" style="padding: 0.2rem;" onclick="updateCartItemQty(${index}, ${item.quantity + 1}); renderCartView();"><i class="fas fa-plus" style="font-size: 0.75rem;"></i></button>
+                    </div>
+
+                    <div style="font-size: 0.95rem; font-weight: 700; color: var(--accent);">
+                      Subtotal: Rs. ${(item.price * item.quantity).toLocaleString()}
+                    </div>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+
+            <div style="margin-top: 2rem;">
+              <a href="shop.html" style="font-size: 0.9rem; font-weight: 600; color: var(--primary);"><i class="fas fa-arrow-left"></i> CONTINUE SHOPPING</a>
+            </div>
+          </div>
+
+          <!-- Right: Order Summary Card -->
+          <div>
+            <div style="background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 2rem; position: sticky; top: 100px;">
+              <h3 style="font-size: 1.25rem; text-transform: uppercase; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem; margin-bottom: 1.5rem;">ORDER SUMMARY</h3>
+
+              <div style="display: flex; flex-direction: column; gap: 1rem; font-size: 0.95rem; margin-bottom: 1.5rem;">
+                <div style="display: flex; justify-content: space-between;">
+                  <span style="color: var(--text-muted);">Subtotal</span>
+                  <span style="font-weight: 600;">Rs. ${totals.subtotal.toLocaleString()}</span>
+                </div>
+
+                <div style="display: flex; justify-content: space-between;">
+                  <span style="color: var(--text-muted);">Estimated Shipping</span>
+                  <span style="font-weight: 600; color: ${totals.shipping === 0 ? 'var(--success)' : 'inherit'};">
+                    ${totals.shipping === 0 ? 'FREE' : `Rs. ${totals.shipping.toLocaleString()}`}
+                  </span>
+                </div>
+
+                ${totals.subtotal < 10000 ? `
+                  <div style="font-size: 0.75rem; color: var(--accent); background: var(--accent-light); padding: 0.5rem; border-radius: 4px;">
+                    Add Rs. ${(10000 - totals.subtotal).toLocaleString()} more to qualify for FREE Shipping!
+                  </div>
+                ` : ''}
+
+                <div style="border-top: 1px solid var(--border-color); padding-top: 1rem; display: flex; justify-content: space-between; font-size: 1.2rem; font-weight: 700;">
+                  <span>Grand Total</span>
+                  <span style="color: var(--primary);">Rs. ${totals.total.toLocaleString()}</span>
+                </div>
+              </div>
+
+              <a href="checkout.html" class="btn btn-primary btn-block" style="padding: 1rem;">
+                PROCEED TO CHECKOUT <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      `;
+    }
+  </script>
+</body>
+</html>

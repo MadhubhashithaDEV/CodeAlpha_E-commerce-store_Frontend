@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop | VELORA Luxury Fashion Catalog</title>
+  <meta name="description" content="Browse our premium clothing collection for men and women. Filter by size, category, gender and price.">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- Announcement Bar -->
+  <div class="announcement-bar">
+    <i class="fas fa-truck-fast"></i> FREE SHIPPING ON ALL ORDERS OVER RS. 10,000
+  </div>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="container nav-container">
+      <button class="mobile-menu-toggle" id="mobile-menu-btn" aria-label="Toggle menu">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <a href="index.html" class="brand-logo">
+        VELORA<span>.</span>
+      </a>
+
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="shop.html" class="nav-link active">Shop</a></li>
+        <li><a href="shop.html?gender=Men" class="nav-link">Men</a></li>
+        <li><a href="shop.html?gender=Women" class="nav-link">Women</a></li>
+        <li><a href="about.html" class="nav-link">About</a></li>
+        <li><a href="contact.html" class="nav-link">Contact</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <div id="nav-user-menu"></div>
+        <a href="cart.html" class="icon-btn" title="Shopping Cart">
+          <i class="fas fa-shopping-bag"></i>
+          <span class="badge-count" id="cart-count-badge" style="display: none;">0</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <div style="background-color: var(--bg-subtle); padding: 3rem 0; text-align: center; border-bottom: 1px solid var(--border-color);">
+    <div class="container">
+      <h1 class="section-title">THE VELORA CATALOGUE</h1>
+      <p class="section-subtitle" style="margin-bottom: 0;">Explore luxury garments meticulously tailored for modern lifestyles.</p>
+    </div>
+  </div>
+
+  <!-- Shop Main Section -->
+  <section class="section-padding container">
+    <div class="shop-layout">
+
+      <!-- Filter Sidebar -->
+      <aside class="filter-sidebar">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem;">
+          <h3 style="font-size: 1.1rem; text-transform: uppercase; letter-spacing: 0.08em;">FILTERS</h3>
+          <button onclick="resetShopFilters()" style="font-size: 0.8rem; color: var(--accent); font-weight: 600;">Reset All</button>
+        </div>
+
+        <!-- Search Filter -->
+        <div class="filter-group">
+          <label class="filter-title">Search</label>
+          <input type="text" id="shop-search" class="form-control" placeholder="Search keywords..." oninput="fetchAndRenderProducts()">
+        </div>
+
+        <!-- Category Filter -->
+        <div class="filter-group">
+          <label class="filter-title">Category</label>
+          <select id="filter-category" class="form-control" onchange="fetchAndRenderProducts()">
+            <option value="">All Categories</option>
+            <option value="T-Shirts">T-Shirts</option>
+            <option value="Shirts">Shirts</option>
+            <option value="Jeans">Jeans & Denim</option>
+            <option value="Dresses">Dresses</option>
+            <option value="Jackets">Jackets & Coats</option>
+            <option value="Shorts">Shorts</option>
+            <option value="Skirts">Skirts</option>
+            <option value="Tops">Tops</option>
+          </select>
+        </div>
+
+        <!-- Gender Filter -->
+        <div class="filter-group">
+          <label class="filter-title">Gender</label>
+          <select id="filter-gender" class="form-control" onchange="fetchAndRenderProducts()">
+            <option value="">All Genders</option>
+            <option value="Men">Men</option>
+            <option value="Women">Women</option>
+            <option value="Unisex">Unisex</option>
+          </select>
+        </div>
+
+        <!-- Size Filter -->
+        <div class="filter-group">
+          <label class="filter-title">Size</label>
+          <div class="size-boxes">
+            <button type="button" class="size-btn" data-size="S" onclick="toggleSizeFilter(this)">S</button>
+            <button type="button" class="size-btn" data-size="M" onclick="toggleSizeFilter(this)">M</button>
+            <button type="button" class="size-btn" data-size="L" onclick="toggleSizeFilter(this)">L</button>
+            <button type="button" class="size-btn" data-size="XL" onclick="toggleSizeFilter(this)">XL</button>
+            <button type="button" class="size-btn" data-size="XXL" onclick="toggleSizeFilter(this)">XXL</button>
+          </div>
+        </div>
+
+        <!-- Price Range Filter -->
+        <div class="filter-group">
+          <label class="filter-title">Price Range (Rs.)</label>
+          <div style="display: flex; gap: 0.5rem; align-items: center;">
+            <input type="number" id="filter-min-price" class="form-control" placeholder="Min" min="0" onchange="fetchAndRenderProducts()">
+            <span>-</span>
+            <input type="number" id="filter-max-price" class="form-control" placeholder="Max" min="0" onchange="fetchAndRenderProducts()">
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Product Display -->
+      <main>
+        <!-- Top Toolbar -->
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem; background: var(--bg-surface); padding: 1rem 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+          <span id="products-count" style="font-size: 0.9rem; font-weight: 500; color: var(--text-muted);">
+            Showing products...
+          </span>
+
+          <div style="display: flex; align-items: center; gap: 0.75rem;">
+            <label for="filter-sort" style="font-size: 0.85rem; font-weight: 500;">Sort By:</label>
+            <select id="filter-sort" class="form-control" style="width: auto; padding: 0.4rem 0.8rem; font-size: 0.85rem;" onchange="fetchAndRenderProducts()">
+              <option value="newest">Newest Arrivals</option>
+              <option value="price-asc">Price: Low to High</option>
+              <option value="price-desc">Price: High to Low</option>
+              <option value="popularity">Popularity & Rating</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Products Grid -->
+        <div class="products-grid" id="shop-products-grid">
+          <!-- Dynamically populated via products.js -->
+        </div>
+      </main>
+
+    </div>
+  </section>
+
+  <!-- Quick View Modal -->
+  <div class="modal-backdrop" id="quick-view-modal">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeQuickView()">&times;</button>
+      <div id="quick-view-content"></div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom" style="border: none; padding: 0;">
+        <p>&copy; 2026 VELORA Clothing Store. CodeAlpha Full Stack Internship Submission.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/products.js"></script>
+</body>
+</html>

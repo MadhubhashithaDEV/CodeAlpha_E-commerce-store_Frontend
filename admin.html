@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | VELORA</title>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="brand-logo">
+        VELORA<span>.</span> <span style="font-size: 0.8rem; color: #e03131; font-family: var(--font-body); font-weight: 700; letter-spacing: 0.1em;">ADMIN PORTAL</span>
+      </a>
+
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html" class="nav-link">Main Site</a></li>
+        <li><a href="shop.html" class="nav-link">Shop View</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <div id="nav-user-menu"></div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Admin Controls Header -->
+  <div style="background-color: var(--primary); color: #fff; padding: 2rem 0;">
+    <div class="container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+      <div>
+        <h1 style="color: #fff; font-size: 1.8rem; margin: 0;">VELORA STORE MANAGEMENT</h1>
+        <p style="color: rgba(255,255,255,0.7); font-size: 0.85rem; margin-top: 0.2rem;">Inventory Control & Order Fulfillment Center</p>
+      </div>
+
+      <div style="display: flex; gap: 1rem;">
+        <button onclick="switchAdminTab('products')" class="btn btn-accent btn-sm" id="tab-btn-products">
+          <i class="fas fa-tshirt"></i> Products (${0})
+        </button>
+        <button onclick="switchAdminTab('orders')" class="btn btn-secondary btn-sm" style="color: #fff; border-color: rgba(255,255,255,0.3);" id="tab-btn-orders">
+          <i class="fas fa-boxes-packing"></i> Customer Orders
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Admin Main Content -->
+  <section class="section-padding container">
+    
+    <!-- Products Tab -->
+    <div id="admin-products-tab">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+        <h2 style="font-size: 1.35rem;">PRODUCT CATALOG MANAGEMENT</h2>
+        <button onclick="openAddProductModal()" class="btn btn-primary">
+          <i class="fas fa-plus"></i> ADD NEW PRODUCT
+        </button>
+      </div>
+
+      <div style="background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-md); overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem; text-align: left;">
+          <thead>
+            <tr style="background: var(--bg-subtle); border-bottom: 2px solid var(--border-color);">
+              <th style="padding: 1rem;">Image</th>
+              <th style="padding: 1rem;">Name</th>
+              <th style="padding: 1rem;">Category</th>
+              <th style="padding: 1rem;">Gender</th>
+              <th style="padding: 1rem;">Price</th>
+              <th style="padding: 1rem;">Stock</th>
+              <th style="padding: 1rem; text-align: right;">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="admin-products-tbody">
+            <!-- Dynamically rendered -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Orders Tab -->
+    <div id="admin-orders-tab" style="display: none;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+        <h2 style="font-size: 1.35rem;">ALL CUSTOMER ORDERS</h2>
+      </div>
+
+      <div style="background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-md); overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem; text-align: left;">
+          <thead>
+            <tr style="background: var(--bg-subtle); border-bottom: 2px solid var(--border-color);">
+              <th style="padding: 1rem;">Order #</th>
+              <th style="padding: 1rem;">Customer</th>
+              <th style="padding: 1rem;">Date</th>
+              <th style="padding: 1rem;">Items</th>
+              <th style="padding: 1rem;">Total</th>
+              <th style="padding: 1rem;">Status</th>
+              <th style="padding: 1rem; text-align: right;">Update Status</th>
+            </tr>
+          </thead>
+          <tbody id="admin-orders-tbody">
+            <!-- Dynamically rendered -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- Add Product Modal -->
+  <div class="modal-backdrop" id="product-modal">
+    <div class="modal-content" style="max-width: 650px;">
+      <button class="modal-close" onclick="closeProductModal()">&times;</button>
+      <h2 id="modal-product-title" style="font-size: 1.35rem; margin-bottom: 1.25rem;">ADD NEW CLOTHING PRODUCT</h2>
+
+      <form id="product-form">
+        <input type="hidden" id="prod-edit-id">
+
+        <div class="form-group">
+          <label class="form-label">Product Name <span style="color: var(--danger);">*</span></label>
+          <input type="text" id="prod-name" class="form-control" required placeholder="e.g. Classic Silk Shirt">
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem;">
+          <div class="form-group">
+            <label class="form-label">Price (Rs.) <span style="color: var(--danger);">*</span></label>
+            <input type="number" id="prod-price" class="form-control" required min="0">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Original Price</label>
+            <input type="number" id="prod-orig-price" class="form-control" min="0">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Stock Quantity <span style="color: var(--danger);">*</span></label>
+            <input type="number" id="prod-stock" class="form-control" required min="0" value="10">
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div class="form-group">
+            <label class="form-label">Category <span style="color: var(--danger);">*</span></label>
+            <select id="prod-category" class="form-control" required>
+              <option value="Shirts">Shirts</option>
+              <option value="T-Shirts">T-Shirts</option>
+              <option value="Jeans">Jeans & Denim</option>
+              <option value="Dresses">Dresses</option>
+              <option value="Jackets">Jackets & Coats</option>
+              <option value="Shorts">Shorts</option>
+              <option value="Skirts">Skirts</option>
+              <option value="Tops">Tops</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Gender <span style="color: var(--danger);">*</span></label>
+            <select id="prod-gender" class="form-control" required>
+              <option value="Men">Men</option>
+              <option value="Women">Women</option>
+              <option value="Unisex">Unisex</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Product Image URL <span style="color: var(--danger);">*</span></label>
+          <input type="url" id="prod-image" class="form-control" required placeholder="https://images.unsplash.com/...">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Description</label>
+          <textarea id="prod-desc" class="form-control" rows="3" required placeholder="Enter detailed garment description..."></textarea>
+        </div>
+
+        <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+          <button type="submit" class="btn btn-primary btn-block">SAVE PRODUCT</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom" style="border: none; padding: 0;">
+        <p>&copy; 2026 VELORA Clothing Store. CodeAlpha Full Stack Internship Submission.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/main.js"></script>
+
+  <script>
+    let allProducts = [];
+    let allOrders = [];
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      const user = getCurrentUser();
+      if (!user || user.role !== 'admin') {
+        showToast('Access Denied. Admin privileges required.', 'error');
+        setTimeout(() => window.location.href = 'index.html', 1000);
+        return;
+      }
+
+      await loadAdminProducts();
+      await loadAdminOrders();
+
+      document.getElementById('product-form').addEventListener('submit', handleProductFormSubmit);
+    });
+
+    function switchAdminTab(tab) {
+      if (tab === 'products') {
+        document.getElementById('admin-products-tab').style.display = 'block';
+        document.getElementById('admin-orders-tab').style.display = 'none';
+        document.getElementById('tab-btn-products').className = 'btn btn-accent btn-sm';
+        document.getElementById('tab-btn-orders').className = 'btn btn-secondary btn-sm';
+      } else {
+        document.getElementById('admin-products-tab').style.display = 'none';
+        document.getElementById('admin-orders-tab').style.display = 'block';
+        document.getElementById('tab-btn-products').className = 'btn btn-secondary btn-sm';
+        document.getElementById('tab-btn-orders').className = 'btn btn-accent btn-sm';
+      }
+    }
+
+    async function loadAdminProducts() {
+      const tbody = document.getElementById('admin-products-tbody');
+      try {
+        const res = await apiRequest('/products');
+        if (res.success) {
+          allProducts = res.data;
+          tbody.innerHTML = allProducts.map(p => `
+            <tr style="border-bottom: 1px solid var(--border-color);">
+              <td style="padding: 0.75rem;"><img src="${p.images[0]}" style="width: 40px; height: 50px; object-fit: cover; border-radius: 4px;"></td>
+              <td style="padding: 0.75rem; font-weight: 600;">${p.name}</td>
+              <td style="padding: 0.75rem;">${p.category}</td>
+              <td style="padding: 0.75rem;">${p.gender}</td>
+              <td style="padding: 0.75rem; font-weight: 700;">Rs. ${p.price.toLocaleString()}</td>
+              <td style="padding: 0.75rem; color: ${p.stock > 0 ? 'var(--success)' : 'var(--danger)'}; font-weight: 600;">${p.stock}</td>
+              <td style="padding: 0.75rem; text-align: right;">
+                <button onclick="editProduct('${p._id}')" class="icon-btn" style="display: inline-flex;" title="Edit"><i class="fas fa-edit"></i></button>
+                <button onclick="deleteProduct('${p._id}')" class="icon-btn" style="display: inline-flex; color: var(--danger);" title="Delete"><i class="fas fa-trash"></i></button>
+              </td>
+            </tr>
+          `).join('');
+        }
+      } catch (e) {}
+    }
+
+    async function loadAdminOrders() {
+      const tbody = document.getElementById('admin-orders-tbody');
+      try {
+        const res = await apiRequest('/orders', 'GET', null, true);
+        if (res.success) {
+          allOrders = res.data;
+          tbody.innerHTML = allOrders.map(o => `
+            <tr style="border-bottom: 1px solid var(--border-color);">
+              <td style="padding: 0.75rem; font-weight: 700;">${o.orderNumber}</td>
+              <td style="padding: 0.75rem;">${o.shippingAddress.fullName}<br><span style="font-size: 0.75rem; color: var(--text-muted);">${o.shippingAddress.city}</span></td>
+              <td style="padding: 0.75rem;">${new Date(o.createdAt).toLocaleDateString()}</td>
+              <td style="padding: 0.75rem;">${o.items.length} items</td>
+              <td style="padding: 0.75rem; font-weight: 700;">Rs. ${o.total.toLocaleString()}</td>
+              <td style="padding: 0.75rem;"><span style="font-weight: 700; color: var(--accent);">${o.status}</span></td>
+              <td style="padding: 0.75rem; text-align: right;">
+                <select onchange="updateOrderStatus('${o._id}', this.value)" class="form-control" style="width: auto; font-size: 0.8rem; padding: 0.2rem 0.4rem;">
+                  ${['Pending', 'Confirmed', 'Processing', 'Shipped', 'Delivered', 'Cancelled'].map(st => `
+                    <option value="${st}" ${o.status === st ? 'selected' : ''}>${st}</option>
+                  `).join('')}
+                </select>
+              </td>
+            </tr>
+          `).join('');
+        }
+      } catch (e) {}
+    }
+
+    function openAddProductModal() {
+      document.getElementById('prod-edit-id').value = '';
+      document.getElementById('modal-product-title').textContent = 'ADD NEW CLOTHING PRODUCT';
+      document.getElementById('product-form').reset();
+      document.getElementById('product-modal').classList.add('open');
+    }
+
+    function closeProductModal() {
+      document.getElementById('product-modal').classList.remove('open');
+    }
+
+    function editProduct(id) {
+      const p = allProducts.find(item => item._id === id);
+      if (!p) return;
+
+      document.getElementById('prod-edit-id').value = p._id;
+      document.getElementById('modal-product-title').textContent = 'EDIT PRODUCT';
+      document.getElementById('prod-name').value = p.name;
+      document.getElementById('prod-price').value = p.price;
+      document.getElementById('prod-orig-price').value = p.originalPrice || '';
+      document.getElementById('prod-stock').value = p.stock;
+      document.getElementById('prod-category').value = p.category;
+      document.getElementById('prod-gender').value = p.gender;
+      document.getElementById('prod-image').value = p.images[0];
+      document.getElementById('prod-desc').value = p.description;
+
+      document.getElementById('product-modal').classList.add('open');
+    }
+
+    async function handleProductFormSubmit(e) {
+      e.preventDefault();
+
+      const editId = document.getElementById('prod-edit-id').value;
+      const data = {
+        name: document.getElementById('prod-name').value.trim(),
+        price: Number(document.getElementById('prod-price').value),
+        originalPrice: Number(document.getElementById('prod-orig-price').value) || Number(document.getElementById('prod-price').value),
+        stock: Number(document.getElementById('prod-stock').value),
+        category: document.getElementById('prod-category').value,
+        gender: document.getElementById('prod-gender').value,
+        images: [document.getElementById('prod-image').value.trim()],
+        description: document.getElementById('prod-desc').value.trim()
+      };
+
+      try {
+        let res;
+        if (editId) {
+          res = await apiRequest(`/products/${editId}`, 'PUT', data, true);
+        } else {
+          res = await apiRequest('/products', 'POST', data, true);
+        }
+
+        if (res.success) {
+          showToast(res.message || 'Product saved successfully', 'success');
+          closeProductModal();
+          await loadAdminProducts();
+        }
+      } catch (err) {
+        showToast(err.message || 'Failed to save product', 'error');
+      }
+    }
+
+    async function deleteProduct(id) {
+      if (!confirm('Are you sure you want to delete this clothing product?')) return;
+
+      try {
+        const res = await apiRequest(`/products/${id}`, 'DELETE', null, true);
+        if (res.success) {
+          showToast('Product deleted', 'info');
+          await loadAdminProducts();
+        }
+      } catch (err) {
+        showToast(err.message || 'Failed to delete product', 'error');
+      }
+    }
+
+    async function updateOrderStatus(orderId, newStatus) {
+      try {
+        const res = await apiRequest(`/orders/${orderId}/status`, 'PUT', { status: newStatus }, true);
+        if (res.success) {
+          showToast(`Order status updated to ${newStatus}`, 'success');
+          await loadAdminOrders();
+        }
+      } catch (err) {
+        showToast(err.message || 'Failed to update order status', 'error');
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us | VELORA Luxury Fashion</title>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- Announcement Bar -->
+  <div class="announcement-bar">
+    <i class="fas fa-truck-fast"></i> FREE SHIPPING ON ALL ORDERS OVER RS. 10,000
+  </div>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="container nav-container">
+      <button class="mobile-menu-toggle" id="mobile-menu-btn" aria-label="Toggle menu">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <a href="index.html" class="brand-logo">
+        VELORA<span>.</span>
+      </a>
+
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="shop.html" class="nav-link">Shop</a></li>
+        <li><a href="about.html" class="nav-link active">About</a></li>
+        <li><a href="contact.html" class="nav-link">Contact</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <div id="nav-user-menu"></div>
+        <a href="cart.html" class="icon-btn" title="Shopping Cart">
+          <i class="fas fa-shopping-bag"></i>
+          <span class="badge-count" id="cart-count-badge" style="display: none;">0</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Banner -->
+  <div style="background: linear-gradient(rgba(15,15,17,0.7), rgba(15,15,17,0.7)), url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1600&auto=format&fit=crop&q=80') center/cover; padding: 6rem 0; color: #fff; text-align: center;">
+    <div class="container">
+      <span class="hero-tag">THE VELORA HERITAGE</span>
+      <h1 style="color: #fff; font-size: 3rem; margin-top: 0.5rem;">CRAFTING ELEGANCE</h1>
+      <p style="font-size: 1.1rem; max-width: 600px; margin: 1rem auto 0; font-weight: 300;">Discover the philosophy, artistry, and vision behind VELORA luxury apparel.</p>
+    </div>
+  </div>
+
+  <!-- Main Story Section -->
+  <section class="section-padding container">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;" class="product-detail-layout">
+      <div>
+        <h2 style="font-size: 2.2rem; margin-bottom: 1.5rem; line-height: 1.2;">STYLE THAT DEFINES YOU.</h2>
+        <p style="color: var(--text-muted); font-size: 1rem; line-height: 1.8; margin-bottom: 1.25rem;">
+          Founded with a commitment to uncompromised luxury and timeless sophistication, VELORA designs contemporary garments that empower self-expression. We believe fashion is not merely about attire—it is an art form of personal identity.
+        </p>
+        <p style="color: var(--text-muted); font-size: 1rem; line-height: 1.8; margin-bottom: 2rem;">
+          From raw Italian linens and Japanese selvedge denims to Mongolian cashmere blends, every fabric is ethically sourced and meticulously constructed to ensure unmatched comfort and longevity.
+        </p>
+
+        <div style="display: flex; gap: 2rem; border-top: 1px solid var(--border-color); padding-top: 1.5rem;">
+          <div>
+            <h3 style="font-size: 2rem; color: var(--accent);">100%</h3>
+            <span style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase;">Authentic Fabrics</span>
+          </div>
+          <div>
+            <h3 style="font-size: 2rem; color: var(--accent);">50k+</h3>
+            <span style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase;">Delighted Clients</span>
+          </div>
+          <div>
+            <h3 style="font-size: 2rem; color: var(--accent);">30 Days</h3>
+            <span style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase;">Easy Exchange</span>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=800&auto=format&fit=crop&q=80" alt="VELORA Atelier" style="width: 100%; height: 500px; object-fit: cover; border-radius: var(--radius-md); box-shadow: var(--shadow-lg);">
+      </div>
+    </div>
+  </section>
+
+  <!-- Sustainability Section -->
+  <section id="sustainability" class="section-padding" style="background-color: var(--bg-surface);">
+    <div class="container" style="text-align: center; max-width: 800px;">
+      <span class="hero-tag" style="color: var(--accent);">OUR ETHICAL COMMITMENT</span>
+      <h2 class="section-title">SUSTAINABLE LUXURY</h2>
+      <p style="color: var(--text-muted); font-size: 1.05rem; line-height: 1.8; margin-top: 1rem;">
+        We prioritize slow fashion and eco-conscious production. By crafting limited small-batch runs and using 100% recyclable, plastic-free packaging, VELORA minimizes environmental footprint while ensuring exceptional garment longevity.
+      </p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom" style="border: none; padding: 0;">
+        <p>&copy; 2026 VELORA Clothing Store. CodeAlpha Full Stack Internship Submission.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
